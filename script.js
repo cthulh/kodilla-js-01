@@ -29,6 +29,11 @@
     element.innerHTML += content;
   }
 
+  // Listify string
+  function listify(str){
+    return "<li>" + str + "</li>"
+  }
+
   // Water form
   function updateWaterForm(temp){
     console.log("Water form in : " + temp);
@@ -62,39 +67,40 @@
   // Temp trivia
   function updateTempTrivia(temp){
     console.log("Temp trivia in : " + temp);
+    // Temp trivia array
+    var tempTriviaArr = [
+      ["<", -31, "Temperature is lower than -31C, the lowest operating temperaturte of a most resistant mobile phone!"],
+      ["<", 39, "Temperature is lower than -39C, the melting temperature of mercury!"],
+      ["<", -216, "Temperature is lower than -216C, the coldest planet in the Solar System, Uranus!"],
+      ["==", 0, "Temperature is 0C, the melting temperature of ice"],
+      ["<", 13.70, "Temperature below 13.7C, the lowest body temperature recorded in a human!"],
+      ["<", 37, "Temperature below 37C, the normal body temperature in a human!"],
+      ["==", 37, "Temperature is 37C, the normal body temperature in a human!"],
+      [">", 37, "Temperature over 37C, the normal body temperature in a human!"],
+      [">", 46.5, "Temperature over 46.5C, the highest body temperature in a human!"],
+      [">", 71, "Temperature over 71C, the highest surface temperature on Earth, recorded in Iran in 2005!"],
+      [">", 101, "Temperature over 101C, the average surface temperature on the Moon during the day!"]
+    ]
+
+    var comparisonSign;
+    var comparisonTemp;
+    var output;
+
     writeTo(tempTrivia,"<br>Temperature trivia:<br><ul>");
-    if (temp < -31.00) {
-      appendElement(empTrivia,"<li>Temperature is lower than -31C, the lowest operating temperaturte of a most resistant mobile phone!");
-    }
-    if (temp < -39.00) {
-      appendElement(tempTrivia,"<li>Temperature is lower than -39C, the melting temperature of mercury!");
-    }
-    if (temp < -216.00) {
-      appendElement(tempTrivia,"<li>Temperature is lower than -216C, the coldest planet in the Solar System, Uranus!");
-    }
-    if (temp === 0.00) {
-      appendElement(tempTrivia,"<li>Temperature is 0C, the melting temperature of ice");
-    }
-    if (temp < 13.70) {
-      appendElement(tempTrivia,"<li>Temperature below 13.7C, the lowest body temperature recorded in a human!");
-    }
-    if (temp < 37.00) {
-      appendElement(tempTrivia,"<li>Temperature below 37C, the normal body temperature in a human!");
-    }
-    if (temp === 37.00) {
-      appendElement(tempTrivia,"<li>Temperature is 37C, the normal body temperature in a human!");
-    }
-    if (temp > 37.00) {
-      appendElement(tempTrivia,"<li>Temperature over 37C, the normal body temperature in a human!");
-    }
-    if (temp > 46.50) {
-      appendElement(tempTrivia,"<li>Temperature over 46.5C, the highest body temperature in a human!");
-    }
-    if (temp > 71.00) {
-      appendElement(tempTrivia,"<li>Temperature over 71C, the highest surface temperature on Earth, recorded in Iran in 2005!");
-    }
-    if (temp > 101.00) {
-      appendElement(tempTrivia,"<li>Temperature over 101C, the average surface temperature on the Moon during the day!");
+
+    for(var i = 0; i < tempTriviaArr.length; i++){
+      comparisonSign = tempTriviaArr[i][0];
+      comparisonTemp = tempTriviaArr[i][1];
+      output = tempTriviaArr[i][2];
+      console.log("----------------------------------");
+      console.log(comparisonSign);
+      console.log(comparisonTemp);
+      console.log(output);
+
+      if ((comparisonSign === "<" && temp < comparisonTemp) || (comparisonSign === "==" && temp === comparisonTemp) || (comparisonSign === ">" && temp > comparisonTemp)){
+        appendElement(tempTrivia,listify(output));
+      }
+
     }
 
     appendElement(tempTrivia,"</ul>");
